@@ -51,11 +51,13 @@ public class LoanCalc {
 			if ( res>0 ) {
 				
 				payment += epsilon;
+				iterationCounter++;
 			} else if ( res<0 ) {
 				
 				thisIsIt = false;
+				
 			}
-			iterationCounter++;
+			//iterationCounter++;
 		}	
 
     	return payment;
