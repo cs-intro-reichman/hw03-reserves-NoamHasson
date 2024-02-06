@@ -17,7 +17,7 @@ public class LoanCalc {
 		double rate = Double.parseDouble(args[1]);
 		int n = Integer.parseInt(args[2]);
 		System.out.println("Loan sum = " + loan + ", interest rate = " + rate + "%, periods = " + n);
-		
+
 		// Computes the periodical payment using brute force search
 		System.out.print("Periodical payment, using brute force: ");
 		System.out.printf("%.2f", bruteForceSolver(loan, rate, n, epsilon));
@@ -39,8 +39,26 @@ public class LoanCalc {
 	*/
 	// Side effect: modifies the class variable iterationCounter.
     public static double bruteForceSolver(double loan, double rate, int n, double epsilon) {  
-    	// Replace the following statement with your code
-    	return 0;
+    	
+		double payment = loan/n; 
+		boolean thisIsIt = true;
+		double res = 0;
+
+		while ( thisIsIt ) {
+
+			res = endBalance(loan, rate, n, payment);
+			
+			if ( res>0 ) {
+				
+				payment += epsilon;
+			} else if ( res<0 ) {
+				
+				thisIsIt = false;
+			}
+			iterationCounter++;
+		}	
+
+    	return payment;
     }
     
     /**
@@ -51,8 +69,26 @@ public class LoanCalc {
 	*/
 	// Side effect: modifies the class variable iterationCounter.
     public static double bisectionSolver(double loan, double rate, int n, double epsilon) {  
-    	// Replace the following statement with your code
-    	return 0;
+    	
+		double payment = loan/n;
+		double H = loan + 1; 
+		double L = payment;
+		double g = (L+H)/2.0;
+		iterationCounter = 0;
+
+		while ( (H-L) > epsilon )  {
+
+			if ( endBalance(loan, rate, n, H)*endBalance(loan, rate, n, g) > 0 ) {
+				H = g;
+			}
+				else {
+				L = g;	
+			} 
+			g = (L+H)/2.0;
+			iterationCounter++;
+		}
+
+    	return g;
     }
 	
 	/**
@@ -60,7 +96,15 @@ public class LoanCalc {
 	* interest rate (as a percentage), the number of periods (n), and the periodical payment.
 	*/
 	private static double endBalance(double loan, double rate, int n, double payment) {
-		// Replace the following statement with your code
-    	return 0;
+		
+		double endingBalance = loan;
+		double r = (rate/100)+1;
+		
+		for (int i = 0;i<n;i++) {
+			
+			endingBalance = (endingBalance-payment) * r;
+
+		}
+		return endingBalance;
 	}
 }

@@ -1,4 +1,6 @@
-/** 
+public class Calendar {
+
+    /** 
  * Prints the calendars of all the years in the 20th century.
  */
 public class Calendar1 {	
@@ -15,19 +17,18 @@ public class Calendar1 {
 	 * number of Sundays that occured on the first day of the month during this period.
 	 */
 	public static void main(String args[]) {
-		// Advances the date and the day-of-the-week from 1/1/1900 till 31/12/1999, inclusive.
-	    // Prints each date dd/mm/yyyy in a separate line. If the day is a Sunday, prints "Sunday".
-	    // The following variable, used for debugging purposes, counts how many days were advanced so far.
+        int n = Integer.parseInt(args[0]);
 		int and1Count = 0;
 	    int debugDaysCounter = 0; 
+        boolean s = true;
 	    //// Write the necessary initialization code, and replace the condition
 	    //// of the while loop with the necessary condition 
-	 	while (year<=1999) {
+	 	while (year<n) {
 			
-			if ( dayOfWeek == 1 ) 
-			System.out.println(dayOfMonth + "/" + month + "/" + year + " " + "sunday");	
-			else System.out.println(dayOfMonth + "/" + month + "/" + year);
-			if ( dayOfWeek ==1 && dayOfMonth ==1) and1Count++;
+			//if ( dayOfWeek == 1 ) 
+			//System.out.println(dayOfMonth + "/" + month + "/" + year + " " + "sunday");	
+			//else System.out.println(dayOfMonth + "/" + month + "/" + year);
+			//if ( dayOfWeek ==1 && dayOfMonth ==1) and1Count++;
 			advance();
 	 		debugDaysCounter++;
 	 		//// If you want to stop the loop after n days, replace the condition of the
@@ -36,7 +37,16 @@ public class Calendar1 {
 	 			break;
 	 		}
         }
-	 	System.out.println("During the 20th century, " + and1Count + " Sundays fell on the first day of the month");
+            while (s) {
+			if ( year>n )
+            break;
+            if ( dayOfWeek == 1 ) 
+			System.out.println(dayOfMonth + "/" + month + "/" + year + " " + "sunday");	
+			else System.out.println(dayOfMonth + "/" + month + "/" + year);
+			if ( dayOfWeek ==1 && dayOfMonth ==1) and1Count++;
+			advance();
+            }
+	 	
 	 }
 	
 	 // Advances the date (day, month, year) and the day-of-the-week.
@@ -53,6 +63,7 @@ public class Calendar1 {
 			year++;
 			month = 1;
 			dayOfMonth = 1;
+			
 		}
 		if ( dayOfMonth>(nDaysInMonth(month, year)) && month!=12) {
 			month++;
@@ -111,5 +122,9 @@ public class Calendar1 {
 					return 31;
 				}
 				return 0;
-	}
-}
+	  }
+    }
+    
+  }
+
+
